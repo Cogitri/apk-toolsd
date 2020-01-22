@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/apk-d
+apk-d.so
+apk-d.dylib
+apk-d.dll
+apk-d.a
+apk-d.lib
+apk-d-test-*
+*.exe
+*.o
+*.obj
+*.lst

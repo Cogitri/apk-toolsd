@@ -1,0 +1,11 @@
+{
+	"name": "apk-tools-d",
+	"description": "Deimos bindings for the Alpine Package Keeper",
+	"homepage": "https://alpinelinux.org",
+	"importPaths": [
+		"."
+	],
+	"license": "GPL-2.0",
+	"libs-posix": ["apk"],
+	"targetType": "sourceLibrary"
+}
