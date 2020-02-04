@@ -9,6 +9,10 @@
  * by the Free Software Foundation. See http://www.gnu.org/ for details.
  */
 
+import deimos.apk_tools.apk_blob;
+import apk_defines;
+import apk_provider_data;
+
 extern (C):
 
 struct apk_solver_name_state
@@ -39,18 +43,10 @@ struct apk_solver_name_state
     ushort merge_provides;
     ushort max_dep_chain;
 
-    mixin(bitfields!(
-        uint, "seen", 1,
-        uint, "locked", 1,
-        uint, "in_changeset", 1,
-        uint, "reevaluate_deps", 1,
-        uint, "reevaluate_iif", 1,
-        uint, "has_iif", 1,
-        uint, "no_iif", 1,
-        uint, "has_options", 1,
-        uint, "reverse_deps_done", 1,
-        uint, "has_virtual_provides", 1,
-        uint, "", 6));
+    mixin(bitfields!(uint, "seen", 1, uint, "locked", 1, uint, "in_changeset",
+            1, uint, "reevaluate_deps", 1, uint, "reevaluate_iif", 1, uint,
+            "has_iif", 1, uint, "no_iif", 1, uint, "has_options", 1, uint,
+            "reverse_deps_done", 1, uint, "has_virtual_provides", 1, uint, "", 6));
 }
 
 struct apk_solver_package_state
@@ -62,19 +58,9 @@ struct apk_solver_package_state
     ushort pinning_allowed;
     ushort pinning_preferred;
 
-    mixin(bitfields!(
-        uint, "solver_flags", 6,
-        uint, "solver_flags_inheritable", 6,
-        uint, "seen", 1,
-        uint, "pkg_available", 1,
-        uint, "pkg_selectable", 1,
-        uint, "tag_ok", 1,
-        uint, "tag_preferred", 1,
-        uint, "dependencies_used", 1,
-        uint, "dependencies_merged", 1,
-        uint, "in_changeset", 1,
-        uint, "iif_triggered", 1,
-        uint, "iif_failed", 1,
-        uint, "error", 1,
-        uint, "", 9));
+    mixin(bitfields!(uint, "solver_flags", 6, uint, "solver_flags_inheritable",
+            6, uint, "seen", 1, uint, "pkg_available", 1, uint, "pkg_selectable",
+            1, uint, "tag_ok", 1, uint, "tag_preferred", 1, uint, "dependencies_used",
+            1, uint, "dependencies_merged", 1, uint, "in_changeset", 1, uint,
+            "iif_triggered", 1, uint, "iif_failed", 1, uint, "error", 1, uint, "", 9));
 }

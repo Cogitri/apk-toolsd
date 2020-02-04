@@ -9,10 +9,13 @@
  * by the Free Software Foundation. See http://www.gnu.org/ for details.
  */
 
+import apk_defines;
+import apk_database;
+import apk_package;
+
 extern (C):
 
 struct apk_name;
-struct apk_package;
 
 struct apk_change
 {
@@ -21,14 +24,15 @@ struct apk_change
     apk_package* old_pkg;
     apk_package* new_pkg;
 
-    mixin(bitfields!(
-        uint, "old_repository_tag", 15,
-        uint, "new_repository_tag", 15,
-        uint, "reinstall", 1,
-        uint, "", 1));
+    mixin(bitfields!(uint, "old_repository_tag", 15, uint,
+            "new_repository_tag", 15, uint, "reinstall", 1, uint, "", 1));
 }
 
-int APK_ARRAY (apk_change_array, apk_change);
+struct apk_hash_array
+{
+    size_t num;
+    apk_change[] item;
+}
 
 struct apk_changeset
 {
@@ -47,27 +51,13 @@ enum APK_SOLVERF_LATEST = 0x0008;
 enum APK_SOLVERF_IGNORE_CONFLICT = 0x0010;
 enum APK_SOLVERF_IGNORE_UPGRADE = 0x0020;
 
-void apk_solver_set_name_flags (
-    apk_name* name,
-    ushort solver_flags,
-    ushort solver_flags_inheritable);
-int apk_solver_solve (
-    apk_database* db,
-    ushort solver_flags,
-    apk_dependency_array* world,
-    apk_changeset* changeset);
+void apk_solver_set_name_flags(apk_name* name, ushort solver_flags, ushort solver_flags_inheritable);
+int apk_solver_solve(apk_database* db, ushort solver_flags,
+        apk_dependency_array* world, apk_changeset* changeset);
 
-int apk_solver_commit_changeset (
-    apk_database* db,
-    apk_changeset* changeset,
-    apk_dependency_array* world);
-void apk_solver_print_errors (
-    apk_database* db,
-    apk_changeset* changeset,
-    apk_dependency_array* world);
+int apk_solver_commit_changeset(apk_database* db, apk_changeset* changeset,
+        apk_dependency_array* world);
+void apk_solver_print_errors(apk_database* db, apk_changeset* changeset,
+        apk_dependency_array* world);
 
-int apk_solver_commit (
-    apk_database* db,
-    ushort solver_flags,
-    apk_dependency_array* world);
-
+int apk_solver_commit(apk_database* db, ushort solver_flags, apk_dependency_array* world);

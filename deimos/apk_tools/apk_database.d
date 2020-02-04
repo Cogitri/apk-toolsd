@@ -11,6 +11,15 @@
 
 import core.stdc.config;
 import core.stdc.stdint;
+import core.sys.posix.sys.types;
+
+import deimos.apk_tools.apk_blob;
+import apk_hash;
+import apk_defines;
+import apk_io;
+import apk_package;
+import apk_provider_data;
+import apk_solver_data;
 
 extern (C):
 
@@ -20,11 +29,11 @@ struct apk_name_array
     apk_name*[] item;
 }
 
-void apk_name_array_init (apk_name_array** a);
-void apk_name_array_free (apk_name_array** a);
-void apk_name_array_resize (apk_name_array** a, size_t size);
-void apk_name_array_copy (apk_name_array** a, apk_name_array* b);
-apk_name** apk_name_array_add (apk_name_array** a);
+void apk_name_array_init(apk_name_array** a);
+void apk_name_array_free(apk_name_array** a);
+void apk_name_array_resize(apk_name_array** a, size_t size);
+void apk_name_array_copy(apk_name_array** a, apk_name_array* b);
+apk_name** apk_name_array_add(apk_name_array** a);
 
 struct apk_db_acl
 {
@@ -44,9 +53,7 @@ struct apk_db_file
     apk_db_dir_instance* diri;
     apk_db_acl* acl;
 
-    mixin(bitfields!(
-        ushort, "audited", 1,
-        ushort, "namelen", 15));
+    mixin(bitfields!(ushort, "audited", 1, ushort, "namelen", 15));
 
     apk_checksum csum;
     char[] name;
@@ -66,9 +73,7 @@ struct apk_protected_path
 
     char* relative_pattern;
 
-    mixin(bitfields!(
-        uint, "protect_mode", 3,
-        uint, "", 5));
+    mixin(bitfields!(uint, "protect_mode", 3, uint, "", 5));
 }
 
 struct apk_protected_path_array
@@ -77,11 +82,11 @@ struct apk_protected_path_array
     apk_protected_path[] item;
 }
 
-void apk_protected_path_array_init (apk_protected_path_array** a);
-void apk_protected_path_array_free (apk_protected_path_array** a);
-void apk_protected_path_array_resize (apk_protected_path_array** a, size_t size);
-void apk_protected_path_array_copy (apk_protected_path_array** a, apk_protected_path_array* b);
-apk_protected_path* apk_protected_path_array_add (apk_protected_path_array** a);
+void apk_protected_path_array_init(apk_protected_path_array** a);
+void apk_protected_path_array_free(apk_protected_path_array** a);
+void apk_protected_path_array_resize(apk_protected_path_array** a, size_t size);
+void apk_protected_path_array_copy(apk_protected_path_array** a, apk_protected_path_array* b);
+apk_protected_path* apk_protected_path_array_add(apk_protected_path_array** a);
 
 struct apk_db_dir
 {
@@ -99,13 +104,9 @@ struct apk_db_dir
     ushort refs;
     ushort namelen;
 
-    mixin(bitfields!(
-        uint, "protect_mode", 3,
-        uint, "has_protected_children", 1,
-        uint, "seen", 1,
-        uint, "created", 1,
-        uint, "modified", 1,
-        uint, "update_permissions", 1));
+    mixin(bitfields!(uint, "protect_mode", 3, uint, "has_protected_children",
+            1, uint, "seen", 1, uint, "created", 1, uint, "modified", 1, uint,
+            "update_permissions", 1));
 
     char[1] rooted_name;
     char[] name;
@@ -132,11 +133,8 @@ struct apk_name
     apk_name_array* rdepends;
     apk_name_array* rinstall_if;
 
-    mixin(bitfields!(
-        uint, "is_dependency", 1,
-        uint, "auto_select_virtual", 1,
-        uint, "priority", 2,
-        uint, "", 4));
+    mixin(bitfields!(uint, "is_dependency", 1, uint, "auto_select_virtual", 1,
+            uint, "priority", 2, uint, "", 4));
 
     uint foreach_genid;
 
@@ -210,14 +208,9 @@ struct apk_database
     uint repo_update_counter;
     uint pending_triggers;
 
-    mixin(bitfields!(
-        int, "performing_self_upgrade", 1,
-        int, "permanent", 1,
-        int, "autoupdate", 1,
-        int, "open_complete", 1,
-        int, "compat_newfeatures", 1,
-        int, "compat_notinstallable", 1,
-        uint, "", 2));
+    mixin(bitfields!(int, "performing_self_upgrade", 1, int, "permanent", 1,
+            int, "autoupdate", 1, int, "open_complete", 1, int,
+            "compat_newfeatures", 1, int, "compat_notinstallable", 1, uint, "", 2));
 
     apk_dependency_array* world;
     apk_protected_path_array* protected_paths;
@@ -262,18 +255,15 @@ union apk_database_or_void
 
 alias apk_database_t = apk_database_or_void;
 
-apk_name* apk_db_get_name (apk_database* db, apk_blob_t name);
-apk_name* apk_db_query_name (apk_database* db, apk_blob_t name);
-int apk_db_get_tag_id (apk_database* db, apk_blob_t tag);
+apk_name* apk_db_get_name(apk_database* db, apk_blob_t name);
+apk_name* apk_db_query_name(apk_database* db, apk_blob_t name);
+int apk_db_get_tag_id(apk_database* db, apk_blob_t tag);
 
-apk_db_dir* apk_db_dir_ref (apk_db_dir* dir);
-void apk_db_dir_unref (apk_database* db, apk_db_dir* dir, int allow_rmdir);
-apk_db_dir* apk_db_dir_get (apk_database* db, apk_blob_t name);
-apk_db_dir* apk_db_dir_query (apk_database* db, apk_blob_t name);
-apk_db_file* apk_db_file_query (
-    apk_database* db,
-    apk_blob_t dir,
-    apk_blob_t name);
+apk_db_dir* apk_db_dir_ref(apk_db_dir* dir);
+void apk_db_dir_unref(apk_database* db, apk_db_dir* dir, int allow_rmdir);
+apk_db_dir* apk_db_dir_get(apk_database* db, apk_blob_t name);
+apk_db_dir* apk_db_dir_query(apk_database* db, apk_blob_t name);
+apk_db_file* apk_db_file_query(apk_database* db, apk_blob_t dir, apk_blob_t name);
 
 enum APK_OPENF_READ = 0x0001;
 enum APK_OPENF_WRITE = 0x0002;
@@ -289,66 +279,44 @@ enum APK_OPENF_NO_AUTOUPDATE = 0x0800;
 enum APK_OPENF_NO_REPOS = APK_OPENF_NO_SYS_REPOS | APK_OPENF_NO_INSTALLED_REPO;
 enum APK_OPENF_NO_STATE = APK_OPENF_NO_INSTALLED | APK_OPENF_NO_SCRIPTS | APK_OPENF_NO_WORLD;
 
-void apk_db_init (apk_database* db);
-int apk_db_open (apk_database* db, apk_db_options* dbopts);
-void apk_db_close (apk_database* db);
-int apk_db_write_config (apk_database* db);
-int apk_db_permanent (apk_database* db);
-int apk_db_check_world (apk_database* db, apk_dependency_array* world);
-int apk_db_fire_triggers (apk_database* db);
-int apk_db_run_script (apk_database* db, char* fn, char** argv);
-void apk_db_update_directory_permissions (apk_database* db);
+void apk_db_init(apk_database* db);
+int apk_db_open(apk_database* db, apk_db_options* dbopts);
+void apk_db_close(apk_database* db);
+int apk_db_write_config(apk_database* db);
+int apk_db_permanent(apk_database* db);
+int apk_db_check_world(apk_database* db, apk_dependency_array* world);
+int apk_db_fire_triggers(apk_database* db);
+int apk_db_run_script(apk_database* db, char* fn, char** argv);
+void apk_db_update_directory_permissions(apk_database* db);
 
-apk_package* apk_db_pkg_add (apk_database* db, apk_package* pkg);
-apk_package* apk_db_get_pkg (apk_database* db, apk_checksum* csum);
-apk_package* apk_db_get_file_owner (apk_database* db, apk_blob_t filename);
+apk_package* apk_db_pkg_add(apk_database* db, apk_package* pkg);
+apk_package* apk_db_get_pkg(apk_database* db, apk_checksum* csum);
+apk_package* apk_db_get_file_owner(apk_database* db, apk_blob_t filename);
 
-int apk_db_index_read (apk_database* db, apk_istream* is_, int repo);
-int apk_db_index_read_file (apk_database* db, const(char)* file, int repo);
-int apk_db_index_write (apk_database* db, apk_ostream* os);
+int apk_db_index_read(apk_database* db, apk_istream* is_, int repo);
+int apk_db_index_read_file(apk_database* db, const(char)* file, int repo);
+int apk_db_index_write(apk_database* db, apk_ostream* os);
 
-int apk_db_add_repository (apk_database_t db, apk_blob_t repository);
-apk_repository* apk_db_select_repo (apk_database* db, apk_package* pkg);
+int apk_db_add_repository(apk_database_t db, apk_blob_t repository);
+apk_repository* apk_db_select_repo(apk_database* db, apk_package* pkg);
 
-int apk_repo_format_cache_index (apk_blob_t to, apk_repository* repo);
-int apk_repo_format_item (
-    apk_database* db,
-    apk_repository* repo,
-    apk_package* pkg,
-    int* fd,
-    char* buf,
-    size_t len);
+int apk_repo_format_cache_index(apk_blob_t to, apk_repository* repo);
+int apk_repo_format_item(apk_database* db, apk_repository* repo,
+        apk_package* pkg, int* fd, char* buf, size_t len);
 
-uint apk_db_get_pinning_mask_repos (apk_database* db, ushort pinning_mask);
+uint apk_db_get_pinning_mask_repos(apk_database* db, ushort pinning_mask);
 
-int apk_db_cache_active (apk_database* db);
-int apk_cache_download (
-    apk_database* db,
-    apk_repository* repo,
-    apk_package* pkg,
-    int verify,
-    int autoupdate,
-    apk_progress_cb cb,
-    void* cb_ctx);
+int apk_db_cache_active(apk_database* db);
+int apk_cache_download(apk_database* db, apk_repository* repo,
+        apk_package* pkg, int verify, int autoupdate, apk_progress_cb cb, void* cb_ctx);
 
-alias apk_cache_item_cb = void function (
-    apk_database* db,
-    int dirfd,
-    const(char)* name,
-    apk_package* pkg);
-int apk_db_cache_foreach_item (apk_database* db, apk_cache_item_cb cb);
+alias apk_cache_item_cb = void function(apk_database* db, int dirfd,
+        const(char)* name, apk_package* pkg);
+int apk_db_cache_foreach_item(apk_database* db, apk_cache_item_cb cb);
 
-int apk_db_install_pkg (
-    apk_database* db,
-    apk_package* oldpkg,
-    apk_package* newpkg,
-    apk_progress_cb cb,
-    void* cb_ctx);
+int apk_db_install_pkg(apk_database* db, apk_package* oldpkg,
+        apk_package* newpkg, apk_progress_cb cb, void* cb_ctx);
 
-void apk_name_foreach_matching (
-    apk_database* db,
-    apk_string_array* filter,
-    uint match,
-    void function (apk_database* db, const(char)* match, apk_name* name, void* ctx) cb,
-    void* ctx);
-
+void apk_name_foreach_matching(apk_database* db, apk_string_array* filter, uint match,
+        void function(apk_database* db, const(char)* match, apk_name* name, void* ctx) cb,
+        void* ctx);

@@ -1,11 +1,20 @@
 {
-	"name": "apk-tools-d",
+	"targetName": "apk-toolsd",
+	"dependencies": {
+		"openssl": "~>2.0.1"
+	},
 	"description": "Deimos bindings for the Alpine Package Keeper",
 	"homepage": "https://alpinelinux.org",
 	"importPaths": [
 		"."
 	],
+	"libs-posix": [
+		"apk"
+	],
 	"license": "GPL-2.0",
-	"libs-posix": ["apk"],
-	"targetType": "sourceLibrary"
+	"name": "apk-tools-d",
+	"targetType": "sourceLibrary",
+	"sourcePaths": [
+		"deimos/apk_tools"
+	]
 }

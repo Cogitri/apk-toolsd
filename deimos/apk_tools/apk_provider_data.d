@@ -9,6 +9,8 @@
  * by the Free Software Foundation. See http://www.gnu.org/ for details.
  */
 
+import deimos.apk_tools.apk_blob;
+
 extern (C):
 
 struct apk_provider
@@ -24,9 +26,8 @@ struct apk_provider_array
     apk_provider[] item;
 }
 
-void apk_provider_array_init (apk_provider_array** a);
-void apk_provider_array_free (apk_provider_array** a);
-void apk_provider_array_resize (apk_provider_array** a, size_t size);
-void apk_provider_array_copy (apk_provider_array** a, apk_provider_array* b);
-apk_provider* apk_provider_array_add (apk_provider_array** a);
-
+void apk_provider_array_init(apk_provider_array** a);
+void apk_provider_array_free(apk_provider_array** a);
+void apk_provider_array_resize(apk_provider_array** a, size_t size);
+void apk_provider_array_copy(apk_provider_array** a, apk_provider_array* b);
+apk_provider* apk_provider_array_add(apk_provider_array** a);

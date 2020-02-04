@@ -41,11 +41,11 @@ enum FALSE = 0;
 enum EAPKBADURL = 1024;
 enum EAPKSTALEINDEX = 1025;
 
-void* ERR_PTR (c_long error);
-void* ERR_CAST (const(void)* ptr);
-int PTR_ERR (const(void)* ptr);
-int IS_ERR (const(void)* ptr);
-int IS_ERR_OR_NULL (const(void)* ptr);
+void* ERR_PTR(c_long error);
+void* ERR_CAST(const(void)* ptr);
+int PTR_ERR(const(void)* ptr);
+int IS_ERR(const(void)* ptr);
+int IS_ERR_OR_NULL(const(void)* ptr);
 
 extern (D) auto likely(T)(auto ref T x)
 {
@@ -90,15 +90,15 @@ enum APK_MAX_REPOS = 32; /* see struct apk_package */
 enum APK_MAX_TAGS = 16; /* see solver; unsigned short */
 enum APK_CACHE_CSUM_BYTES = 4;
 
-time_t apk_time ();
+time_t apk_time();
 
-size_t apk_calc_installed_size (size_t size);
-size_t muldiv (size_t a, size_t b, size_t c);
-size_t mulmod (size_t a, size_t b, size_t c);
+size_t apk_calc_installed_size(size_t size);
+size_t muldiv(size_t a, size_t b, size_t c);
+size_t mulmod(size_t a, size_t b, size_t c);
 
-alias apk_progress_cb = void function (void* cb_ctx, size_t);
+alias apk_progress_cb = void function(void* cb_ctx, size_t);
 
-void* apk_array_resize (void* array, size_t new_size, size_t elem_size);
+void* apk_array_resize(void* array, size_t new_size, size_t elem_size);
 
 struct apk_string_array
 {
@@ -106,11 +106,11 @@ struct apk_string_array
     char*[] item;
 }
 
-void apk_string_array_init (apk_string_array** a);
-void apk_string_array_free (apk_string_array** a);
-void apk_string_array_resize (apk_string_array** a, size_t size);
-void apk_string_array_copy (apk_string_array** a, apk_string_array* b);
-char** apk_string_array_add (apk_string_array** a);
+void apk_string_array_init(apk_string_array** a);
+void apk_string_array_free(apk_string_array** a);
+void apk_string_array_resize(apk_string_array** a, size_t size);
+void apk_string_array_copy(apk_string_array** a, apk_string_array* b);
+char** apk_string_array_add(apk_string_array** a);
 
 enum LIST_END = cast(void*) 0xe01;
 enum LIST_POISON1 = cast(void*) 0xdeadbeef;
@@ -126,21 +126,19 @@ struct hlist_node
     hlist_node* next;
 }
 
-int hlist_empty (const(hlist_head)* h);
+int hlist_empty(const(hlist_head)* h);
 
-int hlist_hashed (const(hlist_node)* n);
+int hlist_hashed(const(hlist_node)* n);
 
-void __hlist_del (hlist_node* n, hlist_node** pprev);
+void __hlist_del(hlist_node* n, hlist_node** pprev);
 
-void hlist_del (hlist_node* n, hlist_head* h);
+void hlist_del(hlist_node* n, hlist_head* h);
 
-void hlist_add_head (hlist_node* n, hlist_head* h);
+void hlist_add_head(hlist_node* n, hlist_head* h);
 
-void hlist_add_after (hlist_node* n, hlist_node** prev);
+void hlist_add_after(hlist_node* n, hlist_node** prev);
 
-hlist_node** hlist_tail_ptr (hlist_head* h);
-
-alias hlist_entry = container_of;
+hlist_node** hlist_tail_ptr(hlist_head* h);
 
 struct list_head
 {
@@ -148,29 +146,22 @@ struct list_head
     list_head* prev;
 }
 
-void list_init (list_head* list);
+void list_init(list_head* list);
 
-void __list_add (list_head* new_, list_head* prev, list_head* next);
+void __list_add(list_head* new_, list_head* prev, list_head* next);
 
-void list_add (list_head* new_, list_head* head);
+void list_add(list_head* new_, list_head* head);
 
-void list_add_tail (list_head* new_, list_head* head);
+void list_add_tail(list_head* new_, list_head* head);
 
-void __list_del (list_head* prev, list_head* next);
+void __list_del(list_head* prev, list_head* next);
 
-void list_del (list_head* entry);
+void list_del(list_head* entry);
 
-void list_del_init (list_head* entry);
+void list_del_init(list_head* entry);
 
-int list_hashed (const(list_head)* n);
+int list_hashed(const(list_head)* n);
 
-int list_empty (const(list_head)* n);
+int list_empty(const(list_head)* n);
 
-list_head* __list_pop (list_head* head);
-
-alias list_entry = container_of;
-
-extern (D) auto list_pop(T0, T1, T2)(auto ref T0 head, auto ref T1 type, auto ref T2 member)
-{
-    return container_of(__list_pop(head), type, member);
-}
+list_head* __list_pop(list_head* head);

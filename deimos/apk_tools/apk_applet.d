@@ -1,3 +1,5 @@
+module deimos.apk_tools.apk_applet;
+
 /* apk_applet.h - Alpine Package Keeper (APK)
  *
  * Copyright (C) 2005-2008 Natanael Copa <n@tanael.org>
@@ -8,6 +10,9 @@
  * under the terms of the GNU General Public License version 2 as published
  * by the Free Software Foundation. See http://www.gnu.org/ for details.
  */
+
+import apk_database : apk_db_options, apk_database;
+import apk_defines;
 
 extern (C):
 
@@ -31,11 +36,7 @@ struct apk_option_group
     int num_options;
     const(apk_option)* options;
 
-    int function (
-        void* ctx,
-        apk_db_options* dbopts,
-        int optch,
-        const(char)* optarg) parse;
+    int function(void* ctx, apk_db_options* dbopts, int optch, const(char)* optarg) parse;
 }
 
 struct apk_applet
@@ -53,12 +54,11 @@ struct apk_applet
     uint command_groups;
     int context_size;
 
-    int function (void* ctx, apk_database* db, apk_string_array* args) main;
+    int function(void* ctx, apk_database* db, apk_string_array* args) main;
 }
 
 extern __gshared const apk_option_group optgroup_global;
 extern __gshared const apk_option_group optgroup_commit;
 
-void apk_applet_register (apk_applet*);
-alias apk_init_func_t = void function ();
-
+void apk_applet_register(apk_applet*);
+alias apk_init_func_t = void function();
