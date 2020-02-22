@@ -26,5 +26,5 @@ pkgc.generate(
 
 install_headers(
     apk_d_src,
-    subdir: 'd/apk_toolsd/apk_toolsd',
+    subdir: 'd/apk-toolsd/apk_toolsd',
 )
