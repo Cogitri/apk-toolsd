@@ -16,6 +16,7 @@ import deimos.openssl.evp;
 import deimos.openssl.ossl_typ;
 
 import deimos.apk_toolsd.apk_blob;
+import deimos.apk_toolsd.apk_database;
 import deimos.apk_toolsd.apk_defines;
 import deimos.apk_toolsd.apk_hash;
 import deimos.apk_toolsd.apk_io;
@@ -23,9 +24,6 @@ import deimos.apk_toolsd.apk_provider_data;
 import deimos.apk_toolsd.apk_solver_data;
 
 extern (C):
-
-struct apk_database;
-struct apk_name;
 
 enum APK_SCRIPT_INVALID = -1;
 enum APK_SCRIPT_PRE_INSTALL = 0;

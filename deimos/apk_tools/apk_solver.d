@@ -15,8 +15,6 @@ import deimos.apk_toolsd.apk_package;
 
 extern (C):
 
-struct apk_name;
-
 struct apk_change
 {
     import std.bitmanip : bitfields;
