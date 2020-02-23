@@ -18,8 +18,13 @@ jobs:
         with:
           compiler: ${{ matrix.dc }}
 
-      - name: Install gdb
-        run: sudo apt-get install gdb
+      - name: Install apk-tools
+        run: |
+          git clone https://gitlab.alpinelinux.org/Cogitri/apk-tools.git/
+          cd apk-tools
+          git checkout make
+          make CFLAGS="$CFLAGS -Wno-error" SCDOC="" LUAAPK=""
+          sudo make CFLAGS="$CFLAGS -Wno-error" SCDOC="" LUAAPK="" install
 
       - name: Run dub tests
         run: |
