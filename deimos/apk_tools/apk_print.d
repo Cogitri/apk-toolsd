@@ -12,7 +12,7 @@
 import core.stdc.stdint;
 import core.sys.posix.sys.types;
 
-import deimos.apk_tools.apk_blob;
+import deimos.apk_toolsd.apk_blob;
 
 extern (C):
 extern __gshared int apk_progress_fd;

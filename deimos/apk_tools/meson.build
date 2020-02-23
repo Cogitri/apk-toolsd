@@ -19,12 +19,12 @@ apk_d_src = [
 pkgc.generate(
     name: 'apk-toolsd',
     subdirs: 'd/apk-toolsd',
+    requires: apk_tools_dep,
     version: meson.project_version(),
     description: 'D bindings for the Alpine Package Keeper.',
-    libraries: apk_tools_dep,
 )
 
 install_headers(
     apk_d_src,
-    subdir: 'd/apk-toolsd/apk_toolsd',
+    subdir: 'd/apk-toolsd/deimos/apk_toolsd',
 )

@@ -12,9 +12,9 @@ import core.sys.posix.sys.types;
 import core.stdc.time;
 import core.stdc.stdint;
 
-import deimos.apk_tools.apk_blob;
-import apk_defines;
-import apk_hash;
+import deimos.apk_toolsd.apk_blob;
+import deimos.apk_toolsd.apk_defines;
+import deimos.apk_toolsd.apk_hash;
 
 extern (C):
 struct apk_id_cache

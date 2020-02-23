@@ -9,7 +9,7 @@
  * by the Free Software Foundation. See http://www.gnu.org/ for details.
  */
 
-import deimos.apk_tools.apk_blob;
+import deimos.apk_toolsd.apk_blob;
 
 extern (C):
 

@@ -11,8 +11,8 @@ module deimos.apk_tools.apk_applet;
  * by the Free Software Foundation. See http://www.gnu.org/ for details.
  */
 
-import apk_database : apk_db_options, apk_database;
-import apk_defines;
+import deimos.apk_toolsd.apk_database : apk_db_options, apk_database;
+import deimos.apk_toolsd.apk_defines;
 
 extern (C):
 

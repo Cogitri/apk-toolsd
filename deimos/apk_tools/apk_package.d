@@ -14,13 +14,13 @@ import core.stdc.stdint;
 
 import deimos.openssl.evp;
 import deimos.openssl.ossl_typ;
-import deimos.apk_tools.apk_blob;
 
-import apk_defines;
-import apk_hash;
-import apk_io;
-import apk_provider_data;
-import apk_solver_data;
+import deimos.apk_toolsd.apk_blob;
+import deimos.apk_toolsd.apk_defines;
+import deimos.apk_toolsd.apk_hash;
+import deimos.apk_toolsd.apk_io;
+import deimos.apk_toolsd.apk_provider_data;
+import deimos.apk_toolsd.apk_solver_data;
 
 extern (C):
 

@@ -11,8 +11,8 @@
 
 import core.stdc.config;
 
-import apk_defines;
-import deimos.apk_tools.apk_blob;
+import deimos.apk_toolsd.apk_defines;
+import deimos.apk_toolsd.apk_blob;
 
 extern (C):
 

@@ -9,9 +9,9 @@
  * by the Free Software Foundation. See http://www.gnu.org/ for details.
  */
 
-import apk_defines;
-import apk_database;
-import apk_package;
+import deimos.apk_toolsd.apk_defines;
+import deimos.apk_toolsd.apk_database;
+import deimos.apk_toolsd.apk_package;
 
 extern (C):
 
