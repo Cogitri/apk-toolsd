@@ -26,7 +26,7 @@ struct apk_change
             "new_repository_tag", 15, uint, "reinstall", 1, uint, "", 1));
 }
 
-struct apk_hash_array
+struct apk_change_array
 {
     size_t num;
     apk_change[] item;
@@ -38,7 +38,6 @@ struct apk_changeset
     int num_remove;
     int num_adjust;
     int num_total_changes;
-    struct apk_change_array;
     apk_change_array* changes;
 }
 
