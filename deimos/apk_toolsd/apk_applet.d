@@ -1,5 +1,3 @@
-module deimos.apk_tools.apk_applet;
-
 /* apk_applet.h - Alpine Package Keeper (APK)
  *
  * Copyright (C) 2005-2008 Natanael Copa <n@tanael.org>
@@ -10,6 +8,8 @@ module deimos.apk_tools.apk_applet;
  * under the terms of the GNU General Public License version 2 as published
  * by the Free Software Foundation. See http://www.gnu.org/ for details.
  */
+
+module deimos.apk_toolsd.apk_applet;
 
 import deimos.apk_toolsd.apk_database : apk_db_options, apk_database;
 import deimos.apk_toolsd.apk_defines;

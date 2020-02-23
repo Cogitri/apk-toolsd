@@ -9,6 +9,8 @@
  * by the Free Software Foundation. See http://www.gnu.org/ for details.
  */
 
+module deimos.apk_toolsd.apk_database;
+
 import core.stdc.config;
 import core.stdc.stdint;
 import core.sys.posix.sys.types;

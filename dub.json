@@ -15,6 +15,6 @@
 	"name": "apk-tools-d",
 	"targetType": "sourceLibrary",
 	"sourcePaths": [
-		"deimos/apk_tools"
+		"."
 	]
 }

@@ -9,6 +9,8 @@
  * by the Free Software Foundation. See http://www.gnu.org/ for details.
  */
 
+module deimos.apk_toolsd.apk_solver_data;
+
 import deimos.apk_toolsd.apk_blob;
 import deimos.apk_toolsd.apk_defines;
 import deimos.apk_toolsd.apk_provider_data;

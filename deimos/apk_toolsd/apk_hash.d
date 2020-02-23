@@ -9,6 +9,8 @@
  * by the Free Software Foundation. See http://www.gnu.org/ for details.
  */
 
+module deimos.apk_toolsd.apk_hash;
+
 import core.stdc.config;
 
 import deimos.apk_toolsd.apk_defines;

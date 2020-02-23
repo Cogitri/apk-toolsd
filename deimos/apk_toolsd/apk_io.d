@@ -8,6 +8,8 @@
  * by the Free Software Foundation. See http://www.gnu.org/ for details.
  */
 
+module deimos.apk_toolsd.apk_io;
+
 import core.sys.posix.sys.types;
 import core.stdc.time;
 import core.stdc.stdint;
