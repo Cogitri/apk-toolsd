@@ -4,4 +4,4 @@ project_soversion = 0
 
 apk_tools_dep = dependency('apk')
 
-subdir('deimos/apk_tools')
+subdir('deimos/apk_toolsd')
