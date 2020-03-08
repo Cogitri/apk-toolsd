@@ -12,7 +12,9 @@
 module deimos.apk_toolsd.apk_solver_data;
 
 import deimos.apk_toolsd.apk_blob;
+import deimos.apk_toolsd.apk_database;
 import deimos.apk_toolsd.apk_defines;
+import deimos.apk_toolsd.apk_package;
 import deimos.apk_toolsd.apk_provider_data;
 
 extern (C):
@@ -33,9 +35,7 @@ struct apk_solver_name_state
 
         struct
         {
-            struct apk_name;
             apk_name* installed_name;
-            struct apk_package;
             apk_package* installed_pkg;
         }
     }

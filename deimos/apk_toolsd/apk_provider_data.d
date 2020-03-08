@@ -12,12 +12,12 @@
 module deimos.apk_toolsd.apk_provider_data;
 
 import deimos.apk_toolsd.apk_blob;
+import deimos.apk_toolsd.apk_package;
 
 extern (C):
 
 struct apk_provider
 {
-    struct apk_package;
     apk_package* pkg;
     apk_blob_t* version_;
 }

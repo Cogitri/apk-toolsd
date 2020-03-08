@@ -83,7 +83,6 @@ struct apk_dependency
 {
     import std.bitmanip : bitfields;
 
-    struct apk_name;
     apk_name* name;
     apk_blob_t* version_;
 
