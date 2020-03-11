@@ -17,7 +17,7 @@ apk_d_src = [
 ]
 
 apk_d_lib = library(
-    'apkd',
+    'apk-toolsd',
     apk_d_src,
     include_directories: src_inc,
     dependencies: [apk_tools_dep, openssld_dep],
