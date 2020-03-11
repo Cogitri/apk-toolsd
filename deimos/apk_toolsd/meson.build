@@ -16,7 +16,7 @@ apk_d_src = [
     'apk_version.d',
 ]
 
-library(
+apk_d_lib = library(
     'apkd',
     apk_d_src,
     include_directories: src_inc,
@@ -24,10 +24,9 @@ library(
 )
 
 pkgc.generate(
-    name: 'apk-toolsd',
+    apk_d_lib,
     subdirs: 'd/apk-toolsd',
-    requires: apk_tools_dep,
-    version: meson.project_version(),
+    requires: [apk_tools_dep, openssld_dep],
     description: 'D bindings for the Alpine Package Keeper.',
 )
 
