@@ -16,6 +16,13 @@ apk_d_src = [
     'apk_version.d',
 ]
 
+library(
+    'apkd',
+    apk_d_src,
+    include_directories: src_inc,
+    dependencies: [apk_tools_dep, openssld_dep],
+)
+
 pkgc.generate(
     name: 'apk-toolsd',
     subdirs: 'd/apk-toolsd',
