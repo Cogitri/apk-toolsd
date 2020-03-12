@@ -19,6 +19,8 @@ apk_d_src = [
 apk_d_lib = library(
     'apk-toolsd',
     apk_d_src,
+    version: meson.project_version(),
+    install: true,
     include_directories: src_inc,
     dependencies: [apk_tools_dep, openssld_dep],
 )
