@@ -1,4 +1,4 @@
-project('apk-toolsd', ['d'], version: '2.10.4')
+project('apk-toolsd', ['d'], version: '2.10.5')
 
 project_soversion = 0
 
