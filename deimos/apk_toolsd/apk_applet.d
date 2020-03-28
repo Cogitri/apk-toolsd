@@ -15,6 +15,7 @@ import deimos.apk_toolsd.apk_database : apk_db_options, apk_database;
 import deimos.apk_toolsd.apk_defines;
 
 extern (C):
+nothrow:
 
 enum APK_COMMAND_GROUP_INSTALL = 0x0001;
 enum APK_COMMAND_GROUP_SYSTEM = 0x0002;
@@ -36,7 +37,7 @@ struct apk_option_group
     int num_options;
     const(apk_option)* options;
 
-    int function(void* ctx, apk_db_options* dbopts, int optch, const(char)* optarg) parse;
+    extern (C) int function(void* ctx, apk_db_options* dbopts, int optch, const(char)* optarg) nothrow parse;
 }
 
 struct apk_applet
@@ -54,11 +55,11 @@ struct apk_applet
     uint command_groups;
     int context_size;
 
-    int function(void* ctx, apk_database* db, apk_string_array* args) main;
+    extern (C) int function(void* ctx, apk_database* db, apk_string_array* args) nothrow main;
 }
 
 extern __gshared const apk_option_group optgroup_global;
 extern __gshared const apk_option_group optgroup_commit;
 
 void apk_applet_register(apk_applet*);
-alias apk_init_func_t = void function();
+alias apk_init_func_t = extern (C) void function() nothrow;

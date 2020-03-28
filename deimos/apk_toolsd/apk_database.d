@@ -24,6 +24,7 @@ import deimos.apk_toolsd.apk_provider_data;
 import deimos.apk_toolsd.apk_solver_data;
 
 extern (C):
+nothrow:
 
 struct apk_name_array
 {
@@ -312,13 +313,14 @@ int apk_db_cache_active(apk_database* db);
 int apk_cache_download(apk_database* db, apk_repository* repo,
         apk_package* pkg, int verify, int autoupdate, apk_progress_cb cb, void* cb_ctx);
 
-alias apk_cache_item_cb = void function(apk_database* db, int dirfd,
-        const(char)* name, apk_package* pkg);
+alias apk_cache_item_cb = extern (C) void function(apk_database* db, int dirfd,
+        const(char)* name, apk_package* pkg) nothrow;
 int apk_db_cache_foreach_item(apk_database* db, apk_cache_item_cb cb);
 
 int apk_db_install_pkg(apk_database* db, apk_package* oldpkg,
         apk_package* newpkg, apk_progress_cb cb, void* cb_ctx);
 
-void apk_name_foreach_matching(apk_database* db, apk_string_array* filter, uint match,
-        void function(apk_database* db, const(char)* match, apk_name* name, void* ctx) cb,
-        void* ctx);
+alias apkNameForeachMatchingCallback = extern (C) void function(apk_database* db,
+        const(char)* match, apk_name* name, void* ctx) nothrow;
+void apk_name_foreach_matching(apk_database* db, apk_string_array* filter,
+        uint match, apkNameForeachMatchingCallback cb, void* ctx);

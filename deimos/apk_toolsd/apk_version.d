@@ -14,6 +14,7 @@ module deimos.apk_toolsd.apk_version;
 import deimos.apk_toolsd.apk_blob;
 
 extern (C):
+nothrow:
 
 enum APK_VERSION_UNKNOWN = 0;
 enum APK_VERSION_EQUAL = 1;

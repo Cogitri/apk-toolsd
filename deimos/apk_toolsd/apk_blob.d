@@ -17,6 +17,8 @@ import core.stdc.stdlib;
 import deimos.openssl.ossl_typ : EVP_MD;
 
 extern (C):
+nothrow:
+
 alias apk_spn_match = const(ubyte)*;
 
 alias apk_spn_match_def = ubyte[32];
@@ -28,7 +30,7 @@ struct apk_blob
 }
 
 alias apk_blob_t = apk_blob;
-alias apk_blob_cb = int function(void* ctx, apk_blob_t blob);
+alias apk_blob_cb = extern (C) int function(void* ctx, apk_blob_t blob) nothrow;
 extern __gshared apk_blob_t apk_null_blob;
 
 enum BLOB_FMT = "%.*s";

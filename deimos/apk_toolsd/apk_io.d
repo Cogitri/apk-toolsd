@@ -19,6 +19,8 @@ import deimos.apk_toolsd.apk_defines;
 import deimos.apk_toolsd.apk_hash;
 
 extern (C):
+nothrow:
+
 struct apk_id_cache
 {
     int root_fd;
@@ -75,9 +77,9 @@ extern __gshared size_t apk_io_bufsize;
 
 struct apk_istream_ops
 {
-    void function(apk_istream* is_, apk_file_meta* meta) get_meta;
-    ssize_t function(apk_istream* is_, void* ptr, size_t size) read;
-    void function(apk_istream* is_) close;
+    extern (C) void function(apk_istream* is_, apk_file_meta* meta) nothrow get_meta;
+    extern (C) ssize_t function(apk_istream* is_, void* ptr, size_t size) nothrow read;
+    extern (C) void function(apk_istream* is_) nothrow close;
 }
 
 enum APK_ISTREAM_SINGLE_READ = 0x0001;
@@ -136,8 +138,8 @@ apk_istream* apk_istream_tee(apk_istream* from, int atfd, const(char)* to,
 
 struct apk_ostream_ops
 {
-    ssize_t function(apk_ostream* os, const(void)* buf, size_t size) write;
-    int function(apk_ostream* os) close;
+    extern (C) ssize_t function(apk_ostream* os, const(void)* buf, size_t size) nothrow write;
+    extern (C) int function(apk_ostream* os) nothrow close;
 }
 
 struct apk_ostream
@@ -176,8 +178,8 @@ int apk_fileinfo_get(int atfd, const(char)* filename, uint flags, apk_file_info*
 void apk_fileinfo_hash_xattr(apk_file_info* fi);
 void apk_fileinfo_free(apk_file_info* fi);
 
-alias apk_dir_file_cb = int function(void* ctx, int dirfd, const(char)* entry);
-int apk_dir_foreach_file(int dirfd, int function() cb, void* ctx);
+alias apk_dir_file_cb = extern (C) int function(void* ctx, int dirfd, const(char)* entry) nothrow;
+int apk_dir_foreach_file(int dirfd, apk_dir_file_cb cb, void* ctx) nothrow;
 
 const(char)* apk_url_local_file(const(char)* url);
 

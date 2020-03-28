@@ -17,6 +17,8 @@ import core.sys.posix.sys.types;
 import deimos.apk_toolsd.apk_blob;
 
 extern (C):
+nothrow:
+
 extern __gshared int apk_progress_fd;
 
 void apk_log(const(char)* prefix, const(char)* format, ...);

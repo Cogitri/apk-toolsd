@@ -15,6 +15,7 @@ import deimos.apk_toolsd.apk_blob;
 import deimos.apk_toolsd.apk_package;
 
 extern (C):
+nothrow:
 
 struct apk_provider
 {

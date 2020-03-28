@@ -18,6 +18,7 @@ import deimos.apk_toolsd.apk_package;
 import deimos.apk_toolsd.apk_provider_data;
 
 extern (C):
+nothrow:
 
 struct apk_solver_name_state
 {

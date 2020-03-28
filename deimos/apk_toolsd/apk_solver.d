@@ -16,31 +16,32 @@ import deimos.apk_toolsd.apk_database;
 import deimos.apk_toolsd.apk_package;
 
 extern (C):
+nothrow:
 
 struct apk_change
 {
-    import std.bitmanip : bitfields;
+        import std.bitmanip : bitfields;
 
-    apk_package* old_pkg;
-    apk_package* new_pkg;
+        apk_package* old_pkg;
+        apk_package* new_pkg;
 
-    mixin(bitfields!(uint, "old_repository_tag", 15, uint,
-            "new_repository_tag", 15, uint, "reinstall", 1, uint, "", 1));
+        mixin(bitfields!(uint, "old_repository_tag", 15, uint,
+                        "new_repository_tag", 15, uint, "reinstall", 1, uint, "", 1));
 }
 
 struct apk_change_array
 {
-    size_t num;
-    apk_change[] item;
+        size_t num;
+        apk_change[] item;
 }
 
 struct apk_changeset
 {
-    int num_install;
-    int num_remove;
-    int num_adjust;
-    int num_total_changes;
-    apk_change_array* changes;
+        int num_install;
+        int num_remove;
+        int num_adjust;
+        int num_total_changes;
+        apk_change_array* changes;
 }
 
 enum APK_SOLVERF_UPGRADE = 0x0001;
@@ -52,11 +53,11 @@ enum APK_SOLVERF_IGNORE_UPGRADE = 0x0020;
 
 void apk_solver_set_name_flags(apk_name* name, ushort solver_flags, ushort solver_flags_inheritable);
 int apk_solver_solve(apk_database* db, ushort solver_flags,
-        apk_dependency_array* world, apk_changeset* changeset);
+                apk_dependency_array* world, apk_changeset* changeset);
 
 int apk_solver_commit_changeset(apk_database* db, apk_changeset* changeset,
-        apk_dependency_array* world);
+                apk_dependency_array* world);
 void apk_solver_print_errors(apk_database* db, apk_changeset* changeset,
-        apk_dependency_array* world);
+                apk_dependency_array* world);
 
 int apk_solver_commit(apk_database* db, ushort solver_flags, apk_dependency_array* world);

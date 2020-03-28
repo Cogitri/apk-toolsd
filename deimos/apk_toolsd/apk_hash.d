@@ -17,24 +17,25 @@ import deimos.apk_toolsd.apk_defines;
 import deimos.apk_toolsd.apk_blob;
 
 extern (C):
+nothrow:
 
 alias apk_hash_item = void*;
 
-alias apk_hash_f = c_ulong function(apk_blob_t);
-alias apk_hash_compare_f = int function(apk_blob_t, apk_blob_t);
-alias apk_hash_compare_item_f = int function(apk_hash_item, apk_blob_t);
-alias apk_hash_delete_f = void function(apk_hash_item);
-alias apk_hash_enumerator_f = int function(apk_hash_item, void* ctx);
+alias apk_hash_f = extern (C) c_ulong function(apk_blob_t) nothrow;
+alias apk_hash_compare_f = extern (C) int function(apk_blob_t, apk_blob_t) nothrow;
+alias apk_hash_compare_item_f = extern (C) int function(apk_hash_item, apk_blob_t) nothrow;
+alias apk_hash_delete_f = extern (C) void function(apk_hash_item) nothrow;
+alias apk_hash_enumerator_f = extern (C) int function(apk_hash_item, void* ctx) nothrow;
 
 struct apk_hash_ops
 {
     ptrdiff_t node_offset;
-    apk_blob_t function(apk_hash_item item) get_key;
-    c_ulong function(apk_blob_t key) hash_key;
-    c_ulong function(apk_hash_item item) hash_item;
-    int function(apk_blob_t itemkey, apk_blob_t key) compare;
-    int function(apk_hash_item item, apk_blob_t key) compare_item;
-    void function(apk_hash_item item) delete_item;
+    extern (C) apk_blob_t function(apk_hash_item item) nothrow get_key;
+    extern (C) c_ulong function(apk_blob_t key) nothrow hash_key;
+    extern (C) c_ulong function(apk_hash_item item) nothrow hash_item;
+    extern (C) int function(apk_blob_t itemkey, apk_blob_t key) nothrow compare;
+    extern (C) int function(apk_hash_item item, apk_blob_t key) nothrow compare_item;
+    extern (C) void function(apk_hash_item item) nothrow delete_item;
 }
 
 alias apk_hash_node = hlist_node;

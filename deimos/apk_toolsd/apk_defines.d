@@ -15,6 +15,7 @@ import core.stdc.config;
 import core.stdc.time;
 
 extern (C):
+nothrow:
 
 extern (D) size_t ARRAY_SIZE(T)(auto ref T x)
 {
@@ -98,7 +99,7 @@ size_t apk_calc_installed_size(size_t size);
 size_t muldiv(size_t a, size_t b, size_t c);
 size_t mulmod(size_t a, size_t b, size_t c);
 
-alias apk_progress_cb = void function(void* cb_ctx, size_t);
+alias apk_progress_cb = extern (C) void function(void* cb_ctx, size_t) nothrow;
 
 void* apk_array_resize(void* array, size_t new_size, size_t elem_size);
 

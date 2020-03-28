@@ -26,6 +26,7 @@ import deimos.apk_toolsd.apk_provider_data;
 import deimos.apk_toolsd.apk_solver_data;
 
 extern (C):
+nothrow:
 
 enum APK_SCRIPT_INVALID = -1;
 enum APK_SCRIPT_PRE_INSTALL = 0;
@@ -231,8 +232,11 @@ int apk_pkg_version_compare(apk_package* a, apk_package* b);
 
 uint apk_foreach_genid();
 int apk_pkg_match_genid(apk_package* pkg, uint match);
-void apk_pkg_foreach_matching_dependency(apk_package* pkg, apk_dependency_array* deps, uint match, apk_package* mpkg,
-        void function(apk_package* pkg0, apk_dependency* dep0, apk_package* pkg, void* ctx) cb,
-        void* ctx);
-void apk_pkg_foreach_reverse_dependency(apk_package* pkg, uint match, void function(
-        apk_package* pkg0, apk_dependency* dep0, apk_package* pkg, void* ctx) cb, void* ctx);
+
+alias apkPkgForeachMatchingDependencyCallback = extern (C) void function(
+        apk_package* pkg0, apk_dependency* dep0, apk_package* pkg, void* ctx) nothrow;
+void apk_pkg_foreach_matching_dependency(apk_package* pkg, apk_dependency_array* deps,
+        uint match, apk_package* mpkg, apkPkgForeachMatchingDependencyCallback cb, void* ctx);
+
+void apk_pkg_foreach_reverse_dependency(apk_package* pkg, uint match,
+        apkPkgForeachMatchingDependencyCallback cb, void* ctx);
