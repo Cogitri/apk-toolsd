@@ -16,10 +16,13 @@ apk_d_src = [
     'apk_version.d',
 ]
 
+# We can't have more than 2 points in our version
+lib_ver = meson.project_version().split('.')
+
 apk_d_lib = library(
     'apk-toolsd',
     apk_d_src,
-    version: meson.project_version(),
+    version: '@0@.@1@.@2@'.format(lib_ver[0], lib_ver[1], lib_ver[2]),
     install: true,
     include_directories: src_inc,
     dependencies: [apk_tools_dep, openssld_dep],
