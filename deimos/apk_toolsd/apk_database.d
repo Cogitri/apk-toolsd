@@ -29,7 +29,7 @@ nothrow:
 struct apk_name_array
 {
     size_t num;
-    apk_name*[] item;
+    apk_name** item;
 }
 
 void apk_name_array_init(apk_name_array** a);
@@ -59,7 +59,7 @@ struct apk_db_file
     mixin(bitfields!(ushort, "audited", 1, ushort, "namelen", 15));
 
     apk_checksum csum;
-    char[] name;
+    char* name;
 }
 
 enum apk_protect_mode
@@ -82,7 +82,7 @@ struct apk_protected_path
 struct apk_protected_path_array
 {
     size_t num;
-    apk_protected_path[] item;
+    apk_protected_path* item;
 }
 
 void apk_protected_path_array_init(apk_protected_path_array** a);
@@ -112,7 +112,7 @@ struct apk_db_dir
             "update_permissions", 1));
 
     char[1] rooted_name;
-    char[] name;
+    char* name;
 }
 
 enum DIR_FILE_FMT = "%s%s%s";

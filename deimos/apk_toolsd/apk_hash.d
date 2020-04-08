@@ -43,7 +43,7 @@ alias apk_hash_node = hlist_node;
 struct apk_hash_array
 {
     size_t num;
-    hlist_head[] item;
+    hlist_head* item;
 }
 
 void apk_hash_array_init(apk_hash_array** a);

@@ -39,7 +39,7 @@ struct apk_xattr
 struct apk_xattr_array
 {
     size_t num;
-    apk_xattr[] item;
+    apk_xattr* item;
 }
 
 void apk_xattr_array_init(apk_xattr_array** a);

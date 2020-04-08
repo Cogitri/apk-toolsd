@@ -26,7 +26,7 @@ struct apk_provider
 struct apk_provider_array
 {
     size_t num;
-    apk_provider[] item;
+    apk_provider* item;
 }
 
 void apk_provider_array_init(apk_provider_array** a);

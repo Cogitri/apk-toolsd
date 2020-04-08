@@ -94,7 +94,7 @@ struct apk_dependency
 struct apk_dependency_array
 {
     size_t num;
-    apk_dependency[] item;
+    apk_dependency* item;
 }
 
 void apk_dependency_array_init(apk_dependency_array** a);
@@ -173,7 +173,7 @@ struct apk_package
 struct apk_package_array
 {
     size_t num;
-    apk_package*[] item;
+    apk_package** item;
 }
 
 void apk_package_array_init(apk_package_array** a);
@@ -182,7 +182,7 @@ void apk_package_array_resize(apk_package_array** a, size_t size);
 void apk_package_array_copy(apk_package_array** a, apk_package_array* b);
 apk_package** apk_package_array_add(apk_package_array** a);
 
-extern __gshared const(char)*[] apk_script_types;
+extern __gshared const(char)** apk_script_types;
 
 void apk_sign_ctx_init(apk_sign_ctx* ctx, int action, apk_checksum* identity, int keys_fd);
 void apk_sign_ctx_free(apk_sign_ctx* ctx);

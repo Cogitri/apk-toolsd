@@ -32,7 +32,7 @@ struct apk_change
 struct apk_change_array
 {
         size_t num;
-        apk_change[] item;
+        apk_change* item;
 }
 
 struct apk_changeset

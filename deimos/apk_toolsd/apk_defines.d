@@ -106,7 +106,7 @@ void* apk_array_resize(void* array, size_t new_size, size_t elem_size);
 struct apk_string_array
 {
     size_t num;
-    char*[] item;
+    char** item;
 }
 
 void apk_string_array_init(apk_string_array** a);
