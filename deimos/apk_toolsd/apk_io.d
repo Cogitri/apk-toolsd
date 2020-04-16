@@ -38,9 +38,9 @@ struct apk_xattr
 
 struct apk_xattr_array
 {
-    apk_xattr[] item(size_t length)
+    @property apk_xattr[] item()
     {
-        return m_item.ptr[0 .. length];
+        return m_item.ptr[0 .. this.num];
     }
 
     size_t num;

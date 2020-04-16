@@ -93,9 +93,9 @@ struct apk_dependency
 
 struct apk_dependency_array
 {
-    apk_dependency[] item(size_t length)
+    @property apk_dependency[] item()
     {
-        return m_item.ptr[0 .. length];
+        return m_item.ptr[0 .. this.num];
     }
 
     size_t num;
@@ -182,9 +182,9 @@ version (X86_64)
 
 struct apk_package_array
 {
-    apk_package*[] item(size_t length)
+    @property apk_package*[] item()
     {
-        return m_item.ptr[0 .. length];
+        return m_item.ptr[0 .. this.num];
     }
 
     size_t num;

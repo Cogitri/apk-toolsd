@@ -105,9 +105,9 @@ void* apk_array_resize(void* array, size_t new_size, size_t elem_size);
 
 struct apk_string_array
 {
-    char*[] item(size_t length)
+    @property char*[] item()
     {
-        return m_item.ptr[0 .. length];
+        return m_item.ptr[0 .. this.num];
     }
 
     size_t num;

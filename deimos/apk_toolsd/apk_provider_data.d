@@ -25,9 +25,9 @@ struct apk_provider
 
 struct apk_provider_array
 {
-    apk_provider[] item(size_t length)
+    @property apk_provider[] item()
     {
-        return m_item.ptr[0 .. length];
+        return m_item.ptr[0 .. this.num];
     }
 
     size_t num;
