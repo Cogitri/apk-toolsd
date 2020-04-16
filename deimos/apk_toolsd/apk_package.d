@@ -169,10 +169,15 @@ struct apk_package
     time_t build_time;
     ushort provider_priority;
 
-    mixin(bitfields!(uint, "repos", 32, uint, "marked", 1, uint,
+    align(1) mixin(bitfields!(uint, "repos", 32, uint, "marked", 1, uint,
             "uninstallable", 1, uint, "cached_non_repository", 1, uint, "", 29));
 
     apk_checksum csum;
+}
+
+version (X86_64)
+{
+    static assert(apk_package.sizeof == 192);
 }
 
 struct apk_package_array
