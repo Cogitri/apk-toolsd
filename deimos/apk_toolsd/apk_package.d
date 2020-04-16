@@ -93,8 +93,13 @@ struct apk_dependency
 
 struct apk_dependency_array
 {
+    apk_dependency[] item(size_t length)
+    {
+        return m_item.ptr[0 .. length];
+    }
+
     size_t num;
-    apk_dependency* item;
+    apk_dependency[0] m_item;
 }
 
 void apk_dependency_array_init(apk_dependency_array** a);
@@ -172,8 +177,13 @@ struct apk_package
 
 struct apk_package_array
 {
+    apk_package*[] item(size_t length)
+    {
+        return m_item.ptr[0 .. length];
+    }
+
     size_t num;
-    apk_package** item;
+    apk_package*[0] m_item;
 }
 
 void apk_package_array_init(apk_package_array** a);

@@ -31,8 +31,13 @@ struct apk_change
 
 struct apk_change_array
 {
+        apk_change[] item(size_t length)
+        {
+                return m_item.ptr[0 .. length];
+        }
+
         size_t num;
-        apk_change* item;
+        apk_change[0] m_item;
 }
 
 struct apk_changeset

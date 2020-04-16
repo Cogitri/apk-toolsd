@@ -28,8 +28,13 @@ nothrow:
 
 struct apk_name_array
 {
+    apk_name*[] item(size_t length)
+    {
+        return m_item.ptr[0 .. length];
+    }
+
     size_t num;
-    apk_name** item;
+    apk_name*[0] m_item;
 }
 
 void apk_name_array_init(apk_name_array** a);
@@ -81,8 +86,13 @@ struct apk_protected_path
 
 struct apk_protected_path_array
 {
+    apk_protected_path[] item(size_t length)
+    {
+        return m_item.ptr[0 .. length];
+    }
+
     size_t num;
-    apk_protected_path* item;
+    apk_protected_path[0] m_item;
 }
 
 void apk_protected_path_array_init(apk_protected_path_array** a);
