@@ -1,8 +1,12 @@
-project('apk-toolsd', ['d'], version: '2.10.5.4')
+project(
+    'apk-toolsd',
+    'd',
+    meson_version: '>=0.54',
+    version: '2.10.5.4',
+)
 
 project_soversion = 0
 
-apk_tools_dep = dependency('apk')
 openssld_dep = dependency('openssld')
 
 src_inc = include_directories('deimos/..')

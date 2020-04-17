@@ -25,13 +25,12 @@ apk_d_lib = library(
     version: '@0@.@1@.@2@'.format(lib_ver[0], lib_ver[1], lib_ver[2]),
     install: true,
     include_directories: src_inc,
-    dependencies: [apk_tools_dep, openssld_dep],
+    dependencies: [openssld_dep.partial_dependency(compile_args: true)],
 )
 
 pkgc.generate(
     apk_d_lib,
     subdirs: 'd/apk-toolsd',
-    requires: [apk_tools_dep, openssld_dep.partial_dependency(includes: true)],
     description: 'D bindings for the Alpine Package Keeper.',
 )
 
