@@ -28,9 +28,9 @@ nothrow:
 
 struct apk_name_array
 {
-    @property apk_name*[] item()
+    @property apk_name*[] item() nothrow
     {
-        return m_item.ptr[0 .. this.num];
+        return this.m_item.ptr[0 .. this.num];
     }
 
     size_t num;
@@ -86,9 +86,9 @@ struct apk_protected_path
 
 struct apk_protected_path_array
 {
-    @property apk_protected_path[] item()
+    @property apk_protected_path[] item() nothrow
     {
-        return m_item.ptr[0 .. this.num];
+        return this.m_item.ptr[0 .. this.num];
     }
 
     size_t num;

@@ -31,9 +31,9 @@ struct apk_change
 
 struct apk_change_array
 {
-        @property apk_change[] item()
+        @property apk_change[] item() nothrow
         {
-                return m_item.ptr[0 .. this.num];
+                return this.m_item.ptr[0 .. this.num];
         }
 
         size_t num;

@@ -25,9 +25,9 @@ struct apk_provider
 
 struct apk_provider_array
 {
-    @property apk_provider[] item()
+    @property apk_provider[] item() nothrow
     {
-        return m_item.ptr[0 .. this.num];
+        return this.m_item.ptr[0 .. this.num];
     }
 
     size_t num;

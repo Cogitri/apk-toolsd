@@ -42,9 +42,9 @@ alias apk_hash_node = hlist_node;
 
 struct apk_hash_array
 {
-    @property hlist_head[] item()
+    @property hlist_head[] item() nothrow
     {
-        return m_item.ptr[0 .. this.num];
+        return this.m_item.ptr[0 .. this.num];
     }
 
     size_t num;
