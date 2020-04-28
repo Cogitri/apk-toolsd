@@ -17,6 +17,8 @@ import deimos.apk_toolsd.apk_io;
 extern (C):
 nothrow:
 
+enum APK_SIMULATE = 0x0001;
+
 alias apk_archive_entry_parser = extern (C) int function(void* ctx,
                 const(apk_file_info)* ae, apk_istream* istream) nothrow;
 
@@ -25,4 +27,5 @@ int apk_tar_write_entry(apk_ostream*, const(apk_file_info)* ae, const(char)* dat
 int apk_tar_write_padding(apk_ostream*, const(apk_file_info)* ae);
 
 int apk_archive_entry_extract(int atfd, const(apk_file_info)* ae, const(char)* extract_name,
-                const(char)* hardlink_name, apk_istream* is_, apk_progress_cb cb, void* cb_ctx);
+                const(char)* hardlink_name, apk_istream* is_, apk_progress_cb cb, void* cb_ctx,
+                uint extract_flags);

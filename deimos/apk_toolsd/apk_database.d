@@ -220,6 +220,7 @@ struct apk_database
     uint repo_update_errors;
     uint repo_update_counter;
     uint pending_triggers;
+    uint extract_flags;
 
     mixin(bitfields!(int, "performing_self_upgrade", 1, int, "permanent", 1,
             int, "autoupdate", 1, int, "open_complete", 1, int,
