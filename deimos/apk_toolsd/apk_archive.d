@@ -17,7 +17,7 @@ import deimos.apk_toolsd.apk_io;
 extern (C):
 nothrow:
 
-enum APK_SIMULATE = 0x0001;
+enum APK_EXTRACTF_NO_CHOWN = 0x0001;
 
 alias apk_archive_entry_parser = extern (C) int function(void* ctx,
                 const(apk_file_info)* ae, apk_istream* istream) nothrow;
