@@ -2,7 +2,7 @@ project(
     'apk-toolsd',
     'd',
     meson_version: '>=0.54',
-    version: '2.10.5.6',
+    version: '2.10.5.7',
 )
 
 project_soversion = 0
