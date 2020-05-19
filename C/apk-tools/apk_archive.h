@@ -4,9 +4,7 @@
  * Copyright (C) 2008-2011 Timo Teräs <timo.teras@iki.fi>
  * All rights reserved.
  *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License version 2 as published
- * by the Free Software Foundation. See http://www.gnu.org/ for details.
+ * SPDX-License-Identifier: GPL-2.0-only
  */
 
 #ifndef APK_ARCHIVE
@@ -16,7 +14,7 @@
 #include "apk_blob.h"
 #include "apk_io.h"
 
-#define APK_EXTRACTF_NO_CHOWN  0x0001
+#define APK_EXTRACTF_NO_CHOWN	0x0001
 
 typedef int (*apk_archive_entry_parser)(void *ctx,
 					const struct apk_file_info *ae,

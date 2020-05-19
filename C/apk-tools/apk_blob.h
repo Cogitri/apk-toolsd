@@ -4,9 +4,7 @@
  * Copyright (C) 2008-2011 Timo Teräs <timo.teras@iki.fi>
  * All rights reserved.
  *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License version 2 as published
- * by the Free Software Foundation. See http://www.gnu.org/ for details.
+ * SPDX-License-Identifier: GPL-2.0-only
  */
 
 #ifndef APK_BLOB_H
@@ -27,7 +25,6 @@ struct apk_blob {
 };
 typedef struct apk_blob apk_blob_t;
 typedef int (*apk_blob_cb)(void *ctx, apk_blob_t blob);
-extern apk_blob_t apk_null_blob;
 
 #define BLOB_FMT		"%.*s"
 #define BLOB_PRINTF(b)		(int)(b).len, (b).ptr
@@ -36,12 +33,15 @@ extern apk_blob_t apk_null_blob;
 #define APK_CHECKSUM_MD5	16
 #define APK_CHECKSUM_SHA1	20
 #define APK_CHECKSUM_DEFAULT	APK_CHECKSUM_SHA1
+#define APK_CHECKSUM_MAX	APK_CHECKSUM_SHA1
 
-#define APK_BLOB_CHECKSUM_BUF	34
+/* Enough space for a hexdump of the longest checksum possible plus
+ * a two-character type prefix */
+#define APK_BLOB_CHECKSUM_BUF	(2 + (2 * APK_CHECKSUM_MAX))
 
-/* Internal cointainer for MD5 or SHA1 */
+/* Internal container for checksums */
 struct apk_checksum {
-	unsigned char data[20];
+	unsigned char data[APK_CHECKSUM_MAX];
 	unsigned char type;
 };
 
@@ -128,10 +128,6 @@ void apk_blob_pull_csum(apk_blob_t *b, struct apk_checksum *csum);
 void apk_blob_pull_base64(apk_blob_t *b, apk_blob_t to);
 void apk_blob_pull_hexdump(apk_blob_t *b, apk_blob_t to);
 int apk_blob_pull_blob_match(apk_blob_t *b, apk_blob_t match);
-
-void apk_atom_init(void);
-apk_blob_t *apk_blob_atomize(apk_blob_t blob);
-apk_blob_t *apk_blob_atomize_dup(apk_blob_t blob);
 
 #if defined(__GLIBC__) && !defined(__UCLIBC__)
 extern size_t strlcpy(char *dest, const char *src, size_t size);

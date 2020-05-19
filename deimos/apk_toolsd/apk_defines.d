@@ -93,8 +93,6 @@ enum APK_MAX_REPOS = 32; /* see struct apk_package */
 enum APK_MAX_TAGS = 16; /* see solver; unsigned short */
 enum APK_CACHE_CSUM_BYTES = 4;
 
-time_t apk_time();
-
 size_t apk_calc_installed_size(size_t size);
 size_t muldiv(size_t a, size_t b, size_t c);
 size_t mulmod(size_t a, size_t b, size_t c);

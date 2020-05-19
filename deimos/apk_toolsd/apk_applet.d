@@ -17,27 +17,11 @@ import deimos.apk_toolsd.apk_defines;
 extern (C):
 nothrow:
 
-enum APK_COMMAND_GROUP_INSTALL = 0x0001;
-enum APK_COMMAND_GROUP_SYSTEM = 0x0002;
-enum APK_COMMAND_GROUP_QUERY = 0x0004;
-enum APK_COMMAND_GROUP_REPO = 0x0008;
-
-struct apk_option
-{
-    int val;
-    const(char)* name;
-    const(char)* help;
-    int has_arg;
-    const(char)* arg_name;
-}
-
 struct apk_option_group
 {
-    const(char)* name;
-    int num_options;
-    const(apk_option)* options;
+    const(char)* desc;
 
-    extern (C) int function(void* ctx, apk_db_options* dbopts, int optch, const(char)* optarg) nothrow parse;
+    extern (C) int function(void* ctx, apk_db_options* dbopts, int opt, const(char)* optarg) nothrow parse;
 }
 
 struct apk_applet
@@ -45,14 +29,11 @@ struct apk_applet
     list_head node;
 
     const(char)* name;
-    const(char)* arguments;
-    const(char)* help;
     const(apk_option_group)*[4] optgroups;
 
     uint open_flags;
     uint forced_flags;
     uint forced_force;
-    uint command_groups;
     int context_size;
 
     extern (C) int function(void* ctx, apk_database* db, apk_string_array* args) nothrow main;
@@ -61,5 +42,6 @@ struct apk_applet
 extern __gshared const apk_option_group optgroup_global;
 extern __gshared const apk_option_group optgroup_commit;
 
+void apk_help(apk_applet* applet);
 void apk_applet_register(apk_applet*);
 alias apk_init_func_t = extern (C) void function() nothrow;

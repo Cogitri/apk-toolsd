@@ -14,7 +14,7 @@ module deimos.apk_toolsd.apk_blob;
 import core.stdc.config;
 import core.stdc.stdlib;
 
-import deimos.openssl.ossl_typ : EVP_MD;
+import deimos.openssl.ossl_typ : EVP_MD, EVP_MD_CTX;
 
 extern (C):
 nothrow:
@@ -31,7 +31,6 @@ struct apk_blob
 
 alias apk_blob_t = apk_blob;
 alias apk_blob_cb = extern (C) int function(void* ctx, apk_blob_t blob) nothrow;
-extern __gshared apk_blob_t apk_null_blob;
 
 enum BLOB_FMT = "%.*s";
 
@@ -39,13 +38,16 @@ enum APK_CHECKSUM_NONE = 0;
 enum APK_CHECKSUM_MD5 = 16;
 enum APK_CHECKSUM_SHA1 = 20;
 enum APK_CHECKSUM_DEFAULT = APK_CHECKSUM_SHA1;
+enum APK_CHECKSUM_MAX = APK_CHECKSUM_SHA1;
 
-enum APK_BLOB_CHECKSUM_BUF = 34;
+/* Enough space for a hexdump of the longest checksum possible plus
+ * a two-character type prefix */
+enum APK_BLOB_CHECKSUM_BUF = (2 + (2 * APK_CHECKSUM_MAX));
 
-/* Internal cointainer for MD5 or SHA1 */
+/* Internal container for checksums */
 struct apk_checksum
 {
-    ubyte[20] data;
+    ubyte[APK_CHECKSUM_MAX] data;
     ubyte type;
 }
 
@@ -96,7 +98,3 @@ void apk_blob_pull_csum(apk_blob_t* b, apk_checksum* csum);
 void apk_blob_pull_base64(apk_blob_t* b, apk_blob_t to);
 void apk_blob_pull_hexdump(apk_blob_t* b, apk_blob_t to);
 int apk_blob_pull_blob_match(apk_blob_t* b, apk_blob_t match);
-
-void apk_atom_init();
-apk_blob_t* apk_blob_atomize(apk_blob_t blob);
-apk_blob_t* apk_blob_atomize_dup(apk_blob_t blob);

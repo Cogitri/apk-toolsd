@@ -14,9 +14,11 @@ import core.sys.posix.sys.types;
 import core.stdc.time;
 import core.stdc.stdint;
 
+import deimos.apk_toolsd.apk_atom;
 import deimos.apk_toolsd.apk_blob;
 import deimos.apk_toolsd.apk_defines;
 import deimos.apk_toolsd.apk_hash;
+import deimos.openssl.ossl_typ : EVP_MD_CTX;
 
 extern (C):
 nothrow:
@@ -107,11 +109,13 @@ apk_istream* apk_istream_from_fd_url_if_modified(int atfd, const(char)* url, tim
 apk_istream* apk_istream_from_url_gz(const(char)* url);
 ssize_t apk_istream_read(apk_istream* is_, void* ptr, size_t size);
 apk_blob_t apk_istream_get(apk_istream* is_, size_t len);
-apk_blob_t apk_istream_get_all(apk_istream* is_);
+apk_blob_t apk_istream_get_max(apk_istream* is_, size_t size);
 apk_blob_t apk_istream_get_delim(apk_istream* is_, apk_blob_t token);
 
-enum APK_SPLICE_ALL = 0xffffffff;
+apk_blob_t apk_istream_get_all(apk_istream is_);
 ssize_t apk_istream_splice(apk_istream* is_, int fd, size_t size, apk_progress_cb cb, void* cb_ctx);
+ssize_t apk_stream_copy(apk_istream* is_, apk_ostream* os, size_t size,
+        apk_progress_cb cb, void* cb_ctx, EVP_MD_CTX* mdctx);
 
 apk_istream* apk_istream_from_url(const(char)* url);
 apk_istream* apk_istream_from_fd_url(int atfd, const(char)* url);
@@ -179,7 +183,8 @@ extern (D) auto APK_FI_CSUM(T)(auto ref T x)
     return (x & 0xff);
 }
 
-int apk_fileinfo_get(int atfd, const(char)* filename, uint flags, apk_file_info* fi);
+int apk_fileinfo_get(int atfd, const(char)* filename, uint flags,
+        apk_file_info* fi, apk_atom_pool* atom);
 void apk_fileinfo_hash_xattr(apk_file_info* fi);
 void apk_fileinfo_free(apk_file_info* fi);
 

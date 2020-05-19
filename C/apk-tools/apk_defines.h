@@ -4,15 +4,14 @@
  * Copyright (C) 2008-2011 Timo Teräs <timo.teras@iki.fi>
  * All rights reserved.
  *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License version 2 as published
- * by the Free Software Foundation. See http://www.gnu.org/ for details.
+ * SPDX-License-Identifier: GPL-2.0-only
  */
 
 #ifndef APK_DEFINES_H
 #define APK_DEFINES_H
 
 #include <endian.h>
+#include <stdint.h>
 #include <string.h>
 #include <time.h>
 
@@ -52,6 +51,10 @@ static inline int IS_ERR_OR_NULL(const void *ptr) { return IS_ERR(ptr) || !ptr; 
 
 #ifndef unlikely
 #define unlikely(x) __builtin_expect((!!(x)),0)
+#endif
+
+#ifndef typeof
+#define typeof(x) __typeof__(x)
 #endif
 
 #ifndef container_of
@@ -114,6 +117,10 @@ extern char **apk_argv;
 #define APK_DEFAULT_ARCH	"mips"
 #elif defined(__mips__) && __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
 #define APK_DEFAULT_ARCH	"mipsel"
+#elif defined(__riscv) && __riscv_xlen == 32
+#define APK_DEFAULT_ARCH	"riscv32"
+#elif defined(__riscv) && __riscv_xlen == 64
+#define APK_DEFAULT_ARCH	"riscv64"
 #else
 #error APK_DEFAULT_ARCH not detected for this architecture
 #endif
@@ -121,8 +128,6 @@ extern char **apk_argv;
 #define APK_MAX_REPOS		32	/* see struct apk_package */
 #define APK_MAX_TAGS		16	/* see solver; unsigned short */
 #define APK_CACHE_CSUM_BYTES	4
-
-time_t apk_time(void);
 
 static inline size_t apk_calc_installed_size(size_t size)
 {
@@ -145,6 +150,16 @@ static inline size_t mulmod(size_t a, size_t b, size_t c)
 	tmp *= b;
 	tmp %= c;
 	return (size_t) tmp;
+}
+
+static inline uint32_t get_unaligned32(const void *ptr)
+{
+#if defined(__x86_64__) || defined(__i386__)
+	return *(const uint32_t *)ptr;
+#else
+	const uint8_t *p = ptr;
+	return p[0] | p[1] << 8 | p[2] << 16 | p[3] << 24;
+#endif
 }
 
 typedef void (*apk_progress_cb)(void *cb_ctx, size_t);

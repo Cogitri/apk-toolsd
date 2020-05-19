@@ -3,9 +3,7 @@
  * Copyright (C) 2008-2011 Timo Teräs <timo.teras@iki.fi>
  * All rights reserved.
  *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License version 2 as published
- * by the Free Software Foundation. See http://www.gnu.org/ for details.
+ * SPDX-License-Identifier: GPL-2.0-only
  */
 
 #ifndef APK_IO
@@ -18,6 +16,7 @@
 #include "apk_defines.h"
 #include "apk_blob.h"
 #include "apk_hash.h"
+#include "apk_atom.h"
 
 struct apk_id_cache {
 	int root_fd;
@@ -74,6 +73,8 @@ struct apk_istream {
 	const struct apk_istream_ops *ops;
 };
 
+#define APK_IO_ALL ((size_t)-1)
+
 struct apk_istream *apk_istream_from_file(int atfd, const char *file);
 struct apk_istream *apk_istream_from_file_gz(int atfd, const char *file);
 struct apk_istream *apk_istream_from_fd(int fd);
@@ -81,12 +82,13 @@ struct apk_istream *apk_istream_from_fd_url_if_modified(int atfd, const char *ur
 struct apk_istream *apk_istream_from_url_gz(const char *url);
 ssize_t apk_istream_read(struct apk_istream *is, void *ptr, size_t size);
 apk_blob_t apk_istream_get(struct apk_istream *is, size_t len);
-apk_blob_t apk_istream_get_all(struct apk_istream *is);
+apk_blob_t apk_istream_get_max(struct apk_istream *is, size_t size);
 apk_blob_t apk_istream_get_delim(struct apk_istream *is, apk_blob_t token);
-
-#define APK_SPLICE_ALL 0xffffffff
+static inline apk_blob_t apk_istream_get_all(struct apk_istream *is) { return apk_istream_get_max(is, APK_IO_ALL); }
 ssize_t apk_istream_splice(struct apk_istream *is, int fd, size_t size,
 			   apk_progress_cb cb, void *cb_ctx);
+ssize_t apk_stream_copy(struct apk_istream *is, struct apk_ostream *os, size_t size,
+			apk_progress_cb cb, void *cb_ctx, EVP_MD_CTX *mdctx);
 
 static inline struct apk_istream *apk_istream_from_url(const char *url)
 {
@@ -166,7 +168,7 @@ int apk_blob_to_file(int atfd, const char *file, apk_blob_t b, unsigned int flag
 #define APK_FI_XATTR_CSUM(x)	(((x) & 0xff) << 8)
 #define APK_FI_CSUM(x)		(((x) & 0xff))
 int apk_fileinfo_get(int atfd, const char *filename, unsigned int flags,
-		     struct apk_file_info *fi);
+		     struct apk_file_info *fi, struct apk_atom_pool *atoms);
 void apk_fileinfo_hash_xattr(struct apk_file_info *fi);
 void apk_fileinfo_free(struct apk_file_info *fi);
 

@@ -4,9 +4,7 @@
  * Copyright (C) 2008-2013 Timo Teräs <timo.teras@iki.fi>
  * All rights reserved.
  *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License version 2 as published
- * by the Free Software Foundation. See http://www.gnu.org/ for details.
+ * SPDX-License-Identifier: GPL-2.0-only
  */
 
 #ifndef APK_SOLVER_H
@@ -22,7 +20,7 @@ struct apk_change {
 	unsigned new_repository_tag : 15;
 	unsigned reinstall : 1;
 };
-APK_ARRAY(struct apk_change_array, struct apk_change);
+APK_ARRAY(apk_change_array, struct apk_change);
 
 struct apk_changeset {
 	int num_install, num_remove, num_adjust;

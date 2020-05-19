@@ -15,6 +15,7 @@ import core.stdc.config;
 import core.stdc.stdint;
 import core.sys.posix.sys.types;
 
+import deimos.apk_toolsd.apk_atom;
 import deimos.apk_toolsd.apk_blob;
 import deimos.apk_toolsd.apk_hash;
 import deimos.apk_toolsd.apk_defines;
@@ -231,6 +232,7 @@ struct apk_database
     apk_repository[APK_MAX_REPOS] repos;
     apk_repository_tag[APK_MAX_TAGS] repo_tags;
     apk_id_cache id_cache;
+    apk_atom_pool atoms;
 
     struct _Anonymous_0
     {

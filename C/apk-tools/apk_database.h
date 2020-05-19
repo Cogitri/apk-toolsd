@@ -4,9 +4,7 @@
  * Copyright (C) 2008-2011 Timo Teräs <timo.teras@iki.fi>
  * All rights reserved.
  *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License version 2 as published
- * by the Free Software Foundation. See http://www.gnu.org/ for details.
+ * SPDX-License-Identifier: GPL-2.0-only
  */
 
 #ifndef APK_PKGDB_H
@@ -14,6 +12,7 @@
 
 #include "apk_version.h"
 #include "apk_hash.h"
+#include "apk_atom.h"
 #include "apk_archive.h"
 #include "apk_package.h"
 #include "apk_io.h"
@@ -168,6 +167,7 @@ struct apk_database {
 	struct apk_repository repos[APK_MAX_REPOS];
 	struct apk_repository_tag repo_tags[APK_MAX_TAGS];
 	struct apk_id_cache id_cache;
+	struct apk_atom_pool atoms;
 
 	struct {
 		struct apk_hash names;
