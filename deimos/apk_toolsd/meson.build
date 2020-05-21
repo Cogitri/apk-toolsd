@@ -2,6 +2,7 @@ pkgc = import('pkgconfig')
 
 apk_d_src = [
     'apk_applet.d',
+    'apk_atom.d',
     'apk_archive.d',
     'apk_blob.d',
     'apk_database.d',
