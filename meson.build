@@ -1,11 +1,9 @@
 project(
     'apk-toolsd',
     'd',
-    meson_version: '>=0.54',
-    version: '2.10.5.7',
+    meson_version: '>=0.53.2',
+    version: '2.10.5.8',
 )
-
-project_soversion = 0
 
 openssld_dep = dependency('openssld')
 
